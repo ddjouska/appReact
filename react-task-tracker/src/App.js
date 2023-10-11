@@ -1,7 +1,7 @@
 import {useState} from "react";
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
-import AddTask from "./components/AddTask";
+import AddTask from './components/AddTask';
 
 
 function App() {
@@ -23,16 +23,22 @@ function App() {
          reminder: false
      }
  ])
+
+// Add task
+const addTask = (task) =>{
+const id= Math.floor(Math.random()* 10000) +1
+const newTask = {id, ...task}
+setTasks([...tasks, newTask])
+}
+
+
+
    //Delete task
   const deleteTask = (id) => {
    setTasks(tasks.filter((task) => task.id!==id))
  }
 
-// //Toggle reminder
-//  const toggleReminder = (id) =>  {
-// setTasks(tasks.map((task)=>
-//   task.id === id? {...task, reminder: !task.reminder} : task))
-//  }
+// Toggle reminder
 
 const toggleReminder = (id) => {
   setTasks(tasks.map((task) => task.id === id ? { ...task, reminder: !task.reminder } : task))
@@ -40,7 +46,7 @@ const toggleReminder = (id) => {
    return (
      <div className="container">
          <Header/>
-         <AddTask/>
+         <AddTask  onAdd={addTask}/>
          <Tasks tasks={tasks} onDelete= {deleteTask} onToggle ={toggleReminder}/>
     </div>
    );
